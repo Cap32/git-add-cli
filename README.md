@@ -1,5 +1,7 @@
 Interactive `git add` command
 
+![demo](./demo.gif)
+
 ## Usage
 
 ```bash
