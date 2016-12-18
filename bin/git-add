@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+const { _ = '' } = process.env;
+
+if (_.endsWith('babel-node')) {
+	require('babel-register')();
+	require('../src/index');
+}
+else {
+	require('../lib/index');
+}
