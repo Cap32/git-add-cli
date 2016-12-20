@@ -2,6 +2,20 @@
 import { exec } from 'mz/child_process';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
+import { version } from '../package.json';
+
+const [, , option] = process.argv;
+
+if (option) {
+	if (['-v', '--version'].includes(option)) {
+		console.log(`v${version}`);
+		process.exit(0);
+	}
+	else if (['-h', '--help'].includes(option)) {
+		console.log(`Just run \`${chalk.blue('git-add')}\` to start the magic.`);
+		process.exit(0);
+	}
+}
 
 const execCommand = async ({ resets, files, commit }) => {
 	const resetCommand = `git reset ${resets.join(' ')}`;
