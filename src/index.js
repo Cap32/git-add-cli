@@ -3,10 +3,12 @@ import { exec } from 'mz/child_process';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 
-const execCommand = async ({ files, commit }) => {
+const execCommand = async ({ resets, files, commit }) => {
+	const resetCommand = `git reset ${resets.join(' ')}`;
 	const addCommand = `git add ${files.join(' ')}`;
 	const commitCommand = `git commit -m ${JSON.stringify(commit)}`;
-	const [result, stderr] = await exec(`${addCommand} && ${commitCommand}`);
+	const commands = [resetCommand, addCommand, commitCommand];
+	const [result, stderr] = await exec(commands.join(' && '));
 
 	if (stderr) { throw new Error(stderr); }
 	console.log(result);
@@ -14,7 +16,7 @@ const execCommand = async ({ files, commit }) => {
 
 const select = async (list) => {
 
-	const anwser = await inquirer.prompt([
+	const { files, ...other } = await inquirer.prompt([
 		{
 			type: 'checkbox',
 			name: 'files',
@@ -28,7 +30,13 @@ const select = async (list) => {
 		},
 	]);
 
-	await execCommand(anwser);
+	const resets = list
+		.filter(({ checked }) => checked)
+		.filter(({ value }) => files.every((file) => file !== value))
+		.map(({ value }) => value)
+	;
+
+	await execCommand({ files, resets, ...other });
 };
 
 const start = async () => {
@@ -44,9 +52,12 @@ const start = async () => {
 		.filter(Boolean)
 		.map((line) => {
 			const [, codeX, codeY, fileName] = parseRegExp.exec(line);
-			const styledCodeX = chalk[/[!?]/.test(codeX) ? 'red' : 'green'](codeX);
+			const hasAdded = !/[!?]/.test(codeX);
+			const styledCodeX = chalk[hasAdded ? 'green' : 'red'](codeX);
 			const styledCodeY = chalk.red(codeY);
+			const checked = hasAdded && !codeY.trim();
 			return {
+				checked,
 				value: fileName,
 				name: `${styledCodeX}${styledCodeY} ${fileName}`,
 			};
