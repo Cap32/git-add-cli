@@ -1,7 +1,7 @@
 {
   "name": "git-add-cli",
   "description": "Interactive `git add` command",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "main": "lib/index",
   "bin": {
     "git-add": "bin/git-add"
