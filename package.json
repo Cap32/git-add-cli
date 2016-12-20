@@ -7,8 +7,7 @@
     "git-add": "bin/git-add"
   },
   "scripts": {
-    "start": "babel-node test",
-    "test": "node test",
+    "test": "babel-node test",
     "prebuild": "rimraf lib",
     "build": "babel src -d lib",
     "prepublish": "npm run build"
