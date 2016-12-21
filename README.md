@@ -15,6 +15,10 @@ $ git-add
 $ npm install -g git-add-cli
 ```
 
+## Requirement
+
+**Node.js v6.0 or above**
+
 ## License
 
 MIT
