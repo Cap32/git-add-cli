@@ -21,7 +21,9 @@ const execCommand = async ({ resets, files, commit }) => {
 	const resetCommand = `git reset ${resets.join(' ')}`;
 	const addCommand = `git add ${files.join(' ')}`;
 	const commitCommand = `git commit -m ${JSON.stringify(commit)}`;
-	const commands = [resetCommand, addCommand, commitCommand];
+	const excapeStr = (str) => str.replace(/`/g, '\\`');
+
+	const commands = [resetCommand, addCommand, commitCommand].map(excapeStr);
 	const [result, stderr] = await exec(commands.join(' && '));
 
 	if (stderr) { throw new Error(stderr); }
