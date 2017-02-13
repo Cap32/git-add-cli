@@ -6,6 +6,11 @@
   "bin": {
     "git-add": "bin/git-add"
   },
+  "files": [
+    "*.md",
+    "bin",
+    "lib",
+  ],
   "scripts": {
     "start": "npm test -- -w --watch-extensions js",
     "test": "mocha -t 10000 --compilers js:babel-core/register test",
