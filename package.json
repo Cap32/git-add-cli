@@ -9,7 +9,7 @@
   "files": [
     "*.md",
     "bin",
-    "lib",
+    "lib"
   ],
   "scripts": {
     "start": "npm test -- -w --watch-extensions js",
