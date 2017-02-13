@@ -15,6 +15,13 @@
   },
   "repository": "git@github.com:Cap32/git-add-cli.git",
   "author": "Cap32 <webb.png@gmail.com>",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "keywords": [
+    "git",
+    "cli"
+  ],
   "licenses": "MIT",
   "dependencies": {
     "chalk": "^1.1.3",
